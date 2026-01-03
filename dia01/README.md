@@ -104,8 +104,46 @@ line(x + 20, y, x + 40, y - 40);
 }
 ```
 
+
 Si quisiéramos tener muchos elementos en pantalla, sin utilizar demasiadas variables, lo más conveniente en ese caso sería utilizar ARREGLOS. 
 
 ## Los arreglos pueden almacenar una lista de elementos bajo un mismo nombre
 
 ## Un CICLO FOR es muy útil para cumplir un ciclo por cada elemento del arreglo
+
+
+``` processing
+
+int num = 20;
+int[] dx = new int[num];
+int[] dy = new int[num];
+
+void setup() {
+  size(100, 100);
+  for (int i = 0; i < num; i++) {
+    dx[i] = i * 5; // Asigna posiciones en X separadas de a 5 píxeles:
+    dy[i] = 12 + (i * 6); // Asigna posiciones en Y separadas de a 6 píxeles y con un "offset" de 12:
+  }
+}
+
+
+
+void draw() {
+  background(204);
+  for (int i = 0; i < num; i++ ) { //Este ciclo recorre los 20 elementos y para cada uno hace 3 cosas:
+    dx[i] = dx[i] + 1; // • Actualiza la posición X sumando un pixel de movimiento hacia la derecha por cada frame
+    if (dx[i] > 100) {
+      dx[i] = -100; // Reaparición cuando sale del borde: Si la X pasa 100, ya se salió por el lado derecho. Entonces se manda a -100 para que empiece fuera por la izquierda, y luego vuelva a entrar.
+    }
+    diagonals(dx[i], dy[i]);
+  }
+}
+
+void diagonals(int x, int y) { // se definen las variables que utilizará la función como argumentos dentro del paréntesis
+
+  line(x, y, x + 20, y - 40);
+  line(x + 10, y, x + 30, y- 40);
+  line(x + 20, y, x + 40, y - 40);
+}
+
+```
